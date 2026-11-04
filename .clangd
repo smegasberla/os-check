@@ -1,0 +1,13 @@
+# The shared compile_flags.txt sets -std=c++20 for every file, but clang rejects
+# a C++ standard when the file is C (.c/.h). Scope the standard per language.
+---
+If:
+  PathMatch: .*\.(c|h)$
+CompileFlags:
+  Remove: [-std=*]
+  Add: [-xc, -std=c17]
+---
+If:
+  PathMatch: .*\.(cc|cpp|cxx|hpp|hxx)$
+CompileFlags:
+  Add: [-xc++]
